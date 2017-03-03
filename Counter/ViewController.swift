@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     // MARK: - Outlets -
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
+    @IBOutlet weak var launchLabel: UILabel!
     
     // MARK: - ViewController lifecycle -
     override func viewDidLoad() {
@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         cb = CounterBrain(total: MyAppData.shared.counterTotal)
         totalLabel.text = String(cb.total)
         dateLabel.text = MyAppData.shared.dateString
+        displayLaunchTotal()
     }
     
 
@@ -68,6 +69,12 @@ class ViewController: UIViewController {
         let dateString = formatter.string(from: date)
         dateLabel.text = "Last used: \(dateString)"
         MyAppData.shared.dateString = dateLabel.text!
+    }
+    
+    private func displayLaunchTotal() {
+        MyAppData.shared.launchTotal += 1
+        let launchString = String(MyAppData.shared.launchTotal)
+        launchLabel.text = "Launched: \(launchString)"
     }
 
 }

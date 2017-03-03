@@ -45,6 +45,8 @@ class MyAppData {
         } else {
             dateString = "Welcome to Counter"
         }
+        
+        launchTotal = defaults.integer(forKey: launchKey)
     }
     
     private init(){
