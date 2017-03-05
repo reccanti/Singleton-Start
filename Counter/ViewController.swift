@@ -57,6 +57,16 @@ class ViewController: UIViewController {
         displayTotal()
     }
     
+    @IBAction func share(_ sender: Any) {
+        let textToShare = "I just used Counter! I'm great!\n\(dateLabel.text!)\n My total is \(totalLabel.text!)!\n"
+        let igmWebsite = NSURL(string: "http://igm.rit.edu/")
+        let objectsToShare:[AnyObject] = [textToShare as AnyObject, igmWebsite!]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityType.print]
+        
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
     // MARK: - Helpers -
     private func displayTotal(){
         MyAppData.shared.counterTotal = cb.total
