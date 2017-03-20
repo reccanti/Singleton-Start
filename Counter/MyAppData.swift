@@ -10,18 +10,8 @@ import Foundation
 
 class MyAppData {
     static let shared = MyAppData()
-    var counterTotal = 0 {
-        didSet {
-            let defaults = UserDefaults.standard
-            defaults.set(counterTotal, forKey: counterKey)
-        }
-    }
-    var dateString = "Last used: never" {
-        didSet {
-            let defaults = UserDefaults.standard
-            defaults.set(dateString, forKey: dateStringKey)
-        }
-    }
+    var counterTotal = 0
+    var dateString = "Last used: never"
     var launchTotal = 0 {
         didSet {
             let defaults = UserDefaults.standard
@@ -52,5 +42,13 @@ class MyAppData {
     private init(){
         print("Created MyAppData instance")
         readDefaultsData()
+    }
+    
+    public func saveDefaultsData() {
+        print("Saving to defaults")
+        let defaults = UserDefaults.standard
+        defaults.set(dateString, forKey:dateStringKey)
+        defaults.set(counterTotal, forKey:counterKey)
+        defaults.synchronize()
     }
 }

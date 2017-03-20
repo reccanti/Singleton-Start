@@ -35,6 +35,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         totalLabel.text = String(cb.total)
         dateLabel.text = MyAppData.shared.dateString
         displayLaunchTotal()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveDefaultsData),
+            name: NSNotification.Name.UIApplicationWillResignActive,
+            object: nil)
+    }
+    
+    /**
+     * When the view is deinitialized, remove the observer to
+     * free up memory
+     */
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 
@@ -89,6 +103,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("cancelled")
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    /**
+     * Save the current state in MyAppData
+     */
+    func saveDefaultsData(){
+        MyAppData.shared.saveDefaultsData()
     }
     
     // MARK: - Helpers -
